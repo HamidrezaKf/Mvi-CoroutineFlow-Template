@@ -5,8 +5,9 @@ import com.hamidreza.mvisample.data.remote.UserRemoteModel.Address
 import com.hamidreza.mvisample.data.remote.UserRemoteModel.Company
 import com.hamidreza.mvisample.data.remote.UserRemoteModel.UserRemoteEntity
 import com.hamidreza.mvisample.utils.EntityMapper
+import javax.inject.Inject
 
-class RemoteMapper : EntityMapper<UserRemoteEntity, User> {
+class RemoteMapper @Inject constructor (): EntityMapper<UserRemoteEntity, User> {
     override fun mapFromEntity(entity: UserRemoteEntity): User {
         return User(
             id = entity.id,

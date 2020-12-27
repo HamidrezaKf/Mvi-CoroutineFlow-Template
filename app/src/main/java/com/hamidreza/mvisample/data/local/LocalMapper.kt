@@ -2,8 +2,9 @@ package com.hamidreza.mvisample.data.local
 
 import com.hamidreza.mvisample.data.model.User
 import com.hamidreza.mvisample.utils.EntityMapper
+import javax.inject.Inject
 
-class LocalMapper : EntityMapper<UserLocalEntity,User> {
+class LocalMapper @Inject constructor() : EntityMapper<UserLocalEntity,User> {
     override fun mapFromEntity(entity: UserLocalEntity): User {
         return User(
             id = entity.id,
