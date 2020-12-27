@@ -8,6 +8,7 @@ import com.hamidreza.mvisample.data.remote.UserApi
 import com.hamidreza.mvisample.utils.ResultState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import java.io.IOException
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class UserRepository @Inject constructor(
     private val localMapper: LocalMapper
 ) {
 
-    suspend fun getUsers(): Flow<ResultState<List<User>>> = flow {
+     fun getUsers(): Flow<ResultState<List<User>>> = flow {
         emit(ResultState.Loading)
         delay(1000)
         try {
@@ -32,10 +33,10 @@ class UserRepository @Inject constructor(
                     emit(ResultState.Success(users))
                 }
             } else {
-                emit(ResultState.Error(response.message()))
+                emit(ResultState.Error("در برقرای ارتباط با سرور مشکلی وجود دارد"))
             }
-        } catch (e: Exception) {
-            emit(ResultState.Error(e.message.toString()))
+        } catch (e:IOException) {
+            emit(ResultState.Error("وضعیت اینترنت خود را چک کنید"))
         }
 
     }

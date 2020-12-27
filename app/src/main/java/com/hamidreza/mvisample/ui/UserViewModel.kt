@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.hamidreza.mvisample.data.model.User
 import com.hamidreza.mvisample.repository.UserRepository
 import com.hamidreza.mvisample.utils.ResultState
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -18,11 +19,11 @@ class UserViewModel @ViewModelInject constructor(val userRepo:UserRepository) : 
 
     fun setStateEvent(mainStateEvent: MainStateEvent){
         when(mainStateEvent){
-            is MainStateEvent.getUsersEvent -> { viewModelScope.launch {
+            is MainStateEvent.getUsersEvent -> {
                 userRepo.getUsers().onEach {
                     _dataState.value = it
-                }
-            }
+                }.launchIn(viewModelScope)
+
             }
         }
     }
